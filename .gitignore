@@ -5,3 +5,4 @@ target
 *.DS_Store
 release.properties
 pom.xml.releaseBackup
+log-*.txt

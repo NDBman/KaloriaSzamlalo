@@ -94,20 +94,28 @@ public class EditDataController {
 		if (goalCBox.getSelectionModel().selectedItemProperty().getValue() == null) {
 			goalErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			goalErrorMessage.setVisible(false);
 		}
 		if (!Pattern.matches("[1-9][0-9]*", ageField.getText())) {
 			ageErrorMessage.setVisible(true);
 			result = false;
 		}else if(Integer.parseInt(ageField.getText()) < 10){
 			result = false;
+		}else{
+			ageErrorMessage.setVisible(false);
 		}
-		if (!Pattern.matches("[1-9][0-9]*.?[0-9]*", weightField.getText())) {
+		if (!Pattern.matches("[1-9][0-9]*\\.?[0-9]*", weightField.getText())) {
 			weightErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			weightErrorMessage.setVisible(false);
 		}
-		if (!Pattern.matches("[1-9][0-9]*.?[0-9]*", heightField.getText())) {
+		if (!Pattern.matches("[1-9][0-9]*\\.?[0-9]*", heightField.getText())) {
 			heightErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			heightErrorMessage.setVisible(false);
 		}
 		return result;
 	}

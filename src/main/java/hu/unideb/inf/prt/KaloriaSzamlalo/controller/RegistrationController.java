@@ -49,6 +49,9 @@ public class RegistrationController {
 	private Label goalErrorMessage;
 
 	@FXML
+	private Label userExistErrorMessage;
+	
+	@FXML
 	private TextField userField;
 
 	@FXML
@@ -78,6 +81,7 @@ public class RegistrationController {
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
+		this.stage.setOnHiding((o)->main.createEntry());
 	}
 
 	@FXML
@@ -92,27 +96,44 @@ public class RegistrationController {
 		if (genderCBox.getSelectionModel().selectedItemProperty().getValue() == null) {
 			genderErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			genderErrorMessage.setVisible(false);
 		}
 		if (goalCBox.getSelectionModel().selectedItemProperty().getValue() == null) {
 			goalErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			goalErrorMessage.setVisible(false);
 		}
 		if (!Pattern.matches("[1-9][0-9]*", ageField.getText())) {
 			ageErrorMessage.setVisible(true);
 			result = false;
 		}else if(Integer.parseInt(ageField.getText()) < 10){
 			result = false;
+			
+		}else{
+			ageErrorMessage.setVisible(false);
 		}
-		if (!Pattern.matches("[1-9][0-9]*.?[0-9]*", weightField.getText())) {
+		if (!Pattern.matches("[1-9][0-9]*\\.?[0-9]*", weightField.getText())) {
 			weightErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			weightErrorMessage.setVisible(false);
 		}
-		if(!Pattern.matches("[1-9][0-9]*.?[0-9]*", heightField.getText())){
+		if(!Pattern.matches("[1-9][0-9]*\\.?[0-9]*", heightField.getText())){
 			heightErrorMessage.setVisible(true);
 			result = false;
+		}else{
+			heightErrorMessage.setVisible(false);
 		}
 		if(userField.getText().isEmpty() || surNameField.getText().isEmpty() || firstNameField.getText().isEmpty()){
 			result = false;
+		}
+		if(main.getPersonByUserName(userField.getText())!=null){
+			userExistErrorMessage.setVisible(true);
+			result = false;
+		}else{
+			userExistErrorMessage.setVisible(false);
 		}
 		return result;
 	}

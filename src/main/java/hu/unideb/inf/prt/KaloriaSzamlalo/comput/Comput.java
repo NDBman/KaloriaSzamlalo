@@ -95,6 +95,7 @@ public class Comput {
 				default:
 					
 				}
+				person.getAddings().remove(size-1);
 				updateGotBMR(person);
 			}
 	}

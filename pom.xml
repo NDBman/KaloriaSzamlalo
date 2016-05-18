@@ -4,6 +4,10 @@
 	<artifactId>KaloriaSzanlalo</artifactId>
 	<version>1.1-SNAPSHOT</version>
 	<description>Napi szükséges kalória bevitelt számláló program</description>
+	<inceptionYear>2016</inceptionYear>
+	<organization>
+		<name>Debreceni Egyetem Informatika Kar</name>
+	</organization>
 	<developers>
 		<developer>
 			<name>Szabó Nándor Attila</name>
@@ -12,8 +16,8 @@
 	</developers>
 	<scm>
 		<url>https://github.com/NDBman/KaloriaSzamlalo.git</url>
-		<developerConnection>scm:git:http://github.com/NDBman/KaloriaSzamlalo.git</developerConnection>
-		<connection>scm:git:http://github.com/NDBman/KaloriaSzamlalo.git</connection>
+		<developerConnection>scm:git:https://github.com/NDBman/KaloriaSzamlalo.git</developerConnection>
+		<connection>scm:git:git://github.com/NDBman/KaloriaSzamlalo.git</connection>
 	  <tag>HEAD</tag>
   </scm>
 	<licenses>

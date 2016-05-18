@@ -10,7 +10,6 @@ import hu.unideb.inf.prt.KaloriaSzamlalo.controller.RegistrationController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.RootPaneController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.WeekStaticsController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl;
-import hu.unideb.inf.prt.KaloriaSzamlalo.io.SavePeopleImpl;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -54,7 +53,7 @@ public class Main extends Application {
 	public static void main(String args[]) {
 		launch(args);
 		Comput.resetUndos(main.getPeople());
-		SavePeopleImpl savePeople = new SavePeopleImpl();
+		PersonDAOImpl savePeople = new PersonDAOImpl();
 		savePeople.savePeople(main.getPeople());
 	}
 
@@ -109,7 +108,7 @@ public class Main extends Application {
 		try {
 			AnchorPane pane = (AnchorPane) loader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Kalóri hozzáadása");
+			stage.setTitle("Kalória hozzáadása");
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(main.primaryStage);
 

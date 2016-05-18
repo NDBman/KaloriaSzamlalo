@@ -75,6 +75,7 @@
                   <Insets left="190.0" />
                </GridPane.margin>
             </Label>
+            <Label fx:id="userExistErrorMessage" text="Ilyen nevű felhasználó már létezik!" visible="false" GridPane.halignment="RIGHT" />
          </children>
          <BorderPane.margin>
             <Insets />

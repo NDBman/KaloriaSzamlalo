@@ -1,9 +1,13 @@
 package hu.unideb.inf.prt.KaloriaSzamlalo.io;
 
-import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
+import java.util.List;
 
-@FunctionalInterface
+import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
+import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
+
+
 public interface PersonDAO {
 
 	public void loadPeople(Main main);
+	public void savePeople(List<Person> people);
 }

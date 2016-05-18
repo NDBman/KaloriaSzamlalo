@@ -17,9 +17,8 @@
 	</developers>
 	<scm>
 		<url>https://github.com/NDBman/KaloriaSzamlalo.git</url>
-		<developerConnection>scm:git:https://github.com/NDBman/KaloriaSzamlalo.git</developerConnection>
-		<connection>scm:git:git://github.com/NDBman/KaloriaSzamlalo.git</connection>
-		<tag>HEAD</tag>
+		<developerConnection>scm:git@github.com:NDBman/KaloriaSzamlalo.git</developerConnection>
+		<connection>scm:https://github.com/NDBman/KaloriaSzamlalo.git</connection>
 	</scm>
 	<licenses>
 		<license>

@@ -2,6 +2,9 @@ package hu.unideb.inf.prt.KaloriaSzamlalo;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import hu.unideb.inf.prt.KaloriaSzamlalo.comput.Comput;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.AddingKcalController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.EditDataController;
@@ -35,6 +38,11 @@ public class Main extends Application {
 
 	private static Main main;
 
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
+
+	public static Logger getLogger() {
+		return logger;
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -76,8 +84,9 @@ public class Main extends Application {
 
 			stage.setResizable(false);
 			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
+
+		} catch (IOException | IllegalStateException e) {
+			logger.error("Nem találhato vagy nem hozzáférhető az EntryView.fxml", e);
 		}
 
 	}
@@ -96,8 +105,8 @@ public class Main extends Application {
 			controller.setStageFocusListener(main.primaryStage);
 			primaryStage.setResizable(false);
 			primaryStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | IllegalStateException e) {
+			logger.error("Nem találhato vagy nem hozzáférhető az RootPane.fxml", e);
 		}
 	}
 
@@ -122,8 +131,8 @@ public class Main extends Application {
 			stage.setResizable(false);
 			stage.show();
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | IllegalStateException e) {
+			logger.error("Nem találhato vagy nem hozzáférhető az AddingKcalView.fxml", e);
 		}
 	}
 
@@ -147,8 +156,8 @@ public class Main extends Application {
 
 			stage.show();
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | IllegalStateException e) {
+			logger.error("Nem találhato vagy nem hozzáférhető az Registration.fxml", e);
 		}
 	}
 
@@ -174,8 +183,8 @@ public class Main extends Application {
 
 			stage.show();
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | IllegalStateException e) {
+			logger.error("Nem találhato vagy nem hozzáférhető az EditDataView.fxml", e);
 		}
 	}
 

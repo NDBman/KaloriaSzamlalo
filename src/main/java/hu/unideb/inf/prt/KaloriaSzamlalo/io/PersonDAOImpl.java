@@ -33,7 +33,7 @@ public class PersonDAOImpl implements PersonDAO {
 				if (person != null)
 					main.getPeople().add(person);
 			} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-				e.printStackTrace();
+				Main.getLogger().error("Nem sikerült a felhasználók betöltés", e);
 			}
 		}
 
@@ -52,7 +52,7 @@ public class PersonDAOImpl implements PersonDAO {
 				gson.toJson(person, fileWriter);
 				fileWriter.close();
 			} catch (JsonIOException | IOException e) {
-				e.printStackTrace();
+				Main.getLogger().error("Nem sikerült elmenteni a felhasználókat", e);
 			}
 
 		}

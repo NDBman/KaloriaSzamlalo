@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.prt.KaloriaSzamlalo.controller.RootPaneController">
+   <top>
+      <MenuBar onContextMenuRequested="#handleLogOut" prefHeight="20.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Felhasználó">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleLogOut" text="Kijelentkezés" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Szerkesztés">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleUndo" text="Visszavonás" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="113.0" layoutY="79.0" text="Üdvözöllek" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameLabel" layoutX="245.0" layoutY="20.0" text="Label">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Button layoutX="460.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleDataEditor" text="Saját adatok szerkesztése" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c0f2a6" height="270.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label layoutX="32.0" layoutY="100.0" text="Napi Kalória szükséglet (grammban megadva):" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="41.0" layoutY="157.0" prefHeight="158.0" prefWidth="720.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="282.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="482.0" minWidth="10.0" prefWidth="265.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="482.0" minWidth="10.0" prefWidth="173.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="- szükséges szénhidrát:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="- szükséges fehérje:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="- szükséges zsír:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="- Összes:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="chProgressBar" prefHeight="20.0" prefWidth="260.0" progress="0.0" GridPane.columnIndex="1" />
+            <ProgressBar fx:id="proteinProgressBar" prefHeight="20.0" prefWidth="260.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ProgressBar fx:id="fatProgressBar" prefHeight="20.0" prefWidth="260.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ProgressBar fx:id="allProgressBar" prefHeight="20.0" prefWidth="260.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="chLabel" text="Label" GridPane.columnIndex="2" />
+            <Label fx:id="proteinLabel" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="fatLabel" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="allLabel" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9bd08b" height="73.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <Button layoutX="20.0" layoutY="377.0" mnemonicParsing="false" onAction="#addingKcalButtton" text="Kalória hozzáadása" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="509.0" layoutY="377.0" mnemonicParsing="false" onAction="#handleWeekStatitcs" text="Heti statisztika megtekintése" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <VBox layoutX="736.0" layoutY="88.0" prefHeight="200.0" prefWidth="100.0" />
+   </children>
+</AnchorPane>
+   </center>
+</BorderPane>

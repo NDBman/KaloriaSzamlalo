@@ -1,4 +1,4 @@
-# KaloriaSzamlalo
+# Kalória Számláló
 
 Ezzel a programmal kiszámolhatjuk, hogy mennyi kalóriabevitelre van szükségünk naponta (külön lebontva: szénhidrátra, fehérjére és zsírra) akár ahhoz, hogy egyenletesen és egészségesen tudjunk fogyni vagy súlyt tartani.
 

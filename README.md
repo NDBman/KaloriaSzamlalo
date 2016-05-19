@@ -21,3 +21,6 @@ Lehetősége van megtekinteni hoyg az elmúlt hét napban menynire sikerült tel
   - Honnan tudom, hogy milyen ételben mennyi kalória van?
     - **Válasz:** Ehhez ezt a  weboldalt ajánlom: http://www.fogyas.info/tapanyag-kaloria-energia-tablazat_kcal-kalkulator.php
 
+#### Források
+  - Alapanyagcsere kiszámításának képlete a http://czinadora-hu.webnode.hu/products/alapanyagcsere-es-napi-energiaszukseglet-kiszamitasa/ oldalon található.
+  - Diéta kiszámításának képlete a http://lifetilt.blog.hu/2012/10/24/dietarol_es_kaloriaszamlalasrol_kezdoknek_i odlalon található.

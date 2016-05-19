@@ -23,6 +23,7 @@ public class RegistrationController {
 	private ObservableList<String> goals = FXCollections.observableArrayList();
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void initialize() {
 		genders.add("Nő");
 		genders.add("Férfi");
@@ -75,17 +76,21 @@ public class RegistrationController {
 	@FXML
 	private ComboBox<String> goalCBox;
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setMain(Main main) {
 		this.main = main;
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setStage(Stage stage) {
 		this.stage = stage;
 		this.stage.setOnHiding((o)->main.createEntry());
 	}
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void handleCancel() {
+		Main.getLogger().info("A felhasználó megnyomta a Mégse gombot.");
 		stage.close();
 		main.createEntry();
 	}
@@ -139,7 +144,9 @@ public class RegistrationController {
 	}
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void handleRegistration() {
+		Main.getLogger().info("A felhasználó megnyomta a Regisztrálok gombot.");
 		if (checkFields()) {
 			Gender gender = (genderCBox.getSelectionModel().selectedIndexProperty().getValue().toString() == "Férfi")
 					? (gender = Gender.MALE) : (gender = Gender.FEMALE);

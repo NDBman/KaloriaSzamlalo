@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.unideb.inf.prt.KaloriaSzamlalo.comput.Comput;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.AddingKcalController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.EditDataController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.EntryController;
@@ -14,6 +13,7 @@ import hu.unideb.inf.prt.KaloriaSzamlalo.controller.RootPaneController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.controller.WeekStaticsController;
 import hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
+import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,15 +24,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class Main extends Application {
 
 	private Stage primaryStage;
 
 	private BorderPane rootPane;
 
-	private ObservableList<Person> people = FXCollections.observableArrayList();
+	private static ObservableList<Person> people = FXCollections.observableArrayList();
 
-	public ObservableList<Person> getPeople() {
+	/**
+	 * Visszaadja a Felhasználók listáját.
+	 * 
+	 * @return A felhasználók listáját.
+	 */
+	public static ObservableList<Person> getPeople() {
 		return people;
 	}
 
@@ -40,6 +49,11 @@ public class Main extends Application {
 
 	private static Logger logger = LoggerFactory.getLogger(Main.class);
 
+	/**
+	 * Visszaadja a {@code Main} osztály loggerét.
+	 * 
+	 * @return A {@code Main} osztály loggerét.
+	 */
 	public static Logger getLogger() {
 		return logger;
 	}
@@ -49,22 +63,34 @@ public class Main extends Application {
 		main = new Main();
 
 		PersonDAOImpl dao = new PersonDAOImpl();
-		dao.loadPeople(main);
+		dao.loadPeople();
 
-		Comput.resetGotNutrients(main.getPeople());
+		Services.resetGotNutrients(Main.getPeople());
+		for(Person person : getPeople()){
+			Services.fillEmptyDays(person.getWeek());
+		}
 		main.primaryStage = primaryStage;
 		main.primaryStage.setTitle("Kalória Számláló");
 		createEntry();
 
 	}
 
+	/**
+	 * A main függvény. Ez indítja el a grafikus felületet valamint annak
+	 * leállásakor meghívja
+	 * {@link hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl#savePeople(java.util.List)}
+	 * függvényt amely perzisztáztálja a felhasználókat.
+	 * 
+	 * @param args indításkor megadott argmentumtömb.
+	 */
 	public static void main(String args[]) {
 		launch(args);
-		Comput.resetUndos(main.getPeople());
+		Services.resetUndos(getPeople());
 		PersonDAOImpl savePeople = new PersonDAOImpl();
-		savePeople.savePeople(main.getPeople());
+		savePeople.savePeople(getPeople());
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void createEntry() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/fxml/EntryView.fxml"));
@@ -91,6 +117,7 @@ public class Main extends Application {
 
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void createRootPane(Person person) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/fxml/RootPane.fxml"));
@@ -107,9 +134,11 @@ public class Main extends Application {
 			primaryStage.show();
 		} catch (IOException | IllegalStateException e) {
 			logger.error("Nem találhato vagy nem hozzáférhető az RootPane.fxml", e);
+			
 		}
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void createAddingKcal(Person person) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/fxml/AddingKcalView.fxml"));
@@ -136,6 +165,7 @@ public class Main extends Application {
 		}
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void createRegistrationView() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/fxml/RegistrationView.fxml"));
@@ -161,6 +191,7 @@ public class Main extends Application {
 		}
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void createEditDataView(Person person) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/fxml/EditDataView.fxml"));
@@ -188,6 +219,7 @@ public class Main extends Application {
 		}
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void createWeekStatics(Person person) {
 
 		Stage stage = new Stage();
@@ -205,6 +237,12 @@ public class Main extends Application {
 		stage.show();
 	}
 
+	/**
+	 * Megkeres egy felhasználót felhasználónév alapján és visszaadja azt.
+	 * 
+	 * @param name A felhasználó felhasználóneve.
+	 * @return Egy {@code Person} típusú objektumot.
+	 */
 	public Person getPersonByUserName(String name) {
 		return getPeople().stream().filter(p -> p.getUserName().equals(name)).findFirst().orElse(null);
 	}

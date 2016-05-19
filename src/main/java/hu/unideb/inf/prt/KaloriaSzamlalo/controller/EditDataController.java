@@ -3,9 +3,9 @@ package hu.unideb.inf.prt.KaloriaSzamlalo.controller;
 import java.util.regex.Pattern;
 
 import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
-import hu.unideb.inf.prt.KaloriaSzamlalo.comput.Comput;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Goals;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
+import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,14 +20,17 @@ public class EditDataController {
 	private Stage stage;
 	private Main main;
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setMain(Main main) {
 		this.main = main;
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setPerson(Person person) {
 		this.person = person;
 
@@ -66,6 +69,7 @@ public class EditDataController {
 	private ComboBox<String> goalCBox;
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void initialize() {
 
 		goals.add("Súlycsökkentés");
@@ -73,6 +77,7 @@ public class EditDataController {
 		goalCBox.setItems(goals);
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setDatas() {
 		surNameField.setText(person.getSurName());
 		firstNameField.setText(person.getFirstName());
@@ -121,7 +126,9 @@ public class EditDataController {
 	}
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void handleSave() {
+		Main.getLogger().info("A felhasználó menyomta a Mentés gombot.");
 		if (checkFields()) {
 			main.getPersonByUserName(person.getUserName()).setSurName(surNameField.getText());
 			main.getPersonByUserName(person.getUserName()).setFirstName(firstNameField.getText());
@@ -132,12 +139,13 @@ public class EditDataController {
 				main.getPersonByUserName(person.getUserName()).setGoal(Goals.LOSING_WEIGHT);
 			else
 				main.getPersonByUserName(person.getUserName()).setGoal(Goals.KEEPING_WEIGHT);
-			Comput.setEssentials(main.getPersonByUserName(person.getUserName()));
+			Services.setEssentials(main.getPersonByUserName(person.getUserName()));
 			stage.close();
 		}
 	}
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void handleCancel() {
 		stage.close();
 	}

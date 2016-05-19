@@ -2,8 +2,9 @@ package hu.unideb.inf.prt.KaloriaSzamlalo.controller;
 
 import java.util.regex.Pattern;
 
-import hu.unideb.inf.prt.KaloriaSzamlalo.comput.Comput;
+import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
+import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,15 +13,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 public class AddingKcalController {
 
 	private Person person;
 	private Stage stage;
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setPerson(Person person) {
 		this.person = person;
 	}
@@ -40,6 +44,7 @@ public class AddingKcalController {
 	private ObservableList<String> listOfKcalTypes = FXCollections.observableArrayList();
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void initialize() {
 		listOfKcalTypes.add("Szénhidrát");
 		listOfKcalTypes.add("Fehérje");
@@ -48,7 +53,9 @@ public class AddingKcalController {
 	}
 
 	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void handleAdd() {
+		Main.getLogger().info("A felhasználó megnyomta a Hozzáadás gombot.");
 		String test;
 		boolean set = true;
 		if (!Pattern.matches("[1-9][0-9]*\\.?[0-9]*", amount.getText())) {
@@ -60,13 +67,13 @@ public class AddingKcalController {
 		if ((test = kcalTypes.getSelectionModel().selectedItemProperty().getValue()) != null && !errorNumberFormatMessage.isVisible()) {
 			switch (test) {
 			case "Szénhidrát":
-				Comput.incGotCH(Double.valueOf(amount.getText()), person);
+				Services.incGotCH(Double.valueOf(amount.getText()), person);
 				break;
 			case "Fehérje":
-				Comput.incGotProtein(Double.valueOf(amount.getText()), person);
+				Services.incGotProtein(Double.valueOf(amount.getText()), person);
 				break;
 			case "Zsír":
-				Comput.incGotFat(Double.valueOf(amount.getText()), person);
+				Services.incGotFat(Double.valueOf(amount.getText()), person);
 				break;
 			}
 			errorNotSelectedMessage.setVisible(false);

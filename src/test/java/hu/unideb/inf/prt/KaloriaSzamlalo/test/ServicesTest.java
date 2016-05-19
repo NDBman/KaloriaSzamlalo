@@ -9,15 +9,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.unideb.inf.prt.KaloriaSzamlalo.comput.Comput;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Adding;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.DailyGotNutreints;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Gender;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Goals;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Nutrients;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
+import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
 
-public class ComputTest {
+public class ServicesTest {
 
 	
 	private Person pBoy;
@@ -40,7 +40,7 @@ public class ComputTest {
 		p.setGender(Gender.MALE);
 		p.setWeight(Double.valueOf(56));
 		p.setAge(Integer.valueOf(9));
-		assertEquals(0, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(0, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class ComputTest {
 		p.setGender(Gender.FEMALE);
 		p.setWeight(Double.valueOf(56));
 		p.setAge(Integer.valueOf(9));
-		assertEquals(0, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(0, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class ComputTest {
 		p.setGender(Gender.MALE);
 		p.setWeight(Double.valueOf(56));
 		p.setAge(Integer.valueOf(16));
-		assertEquals(1631, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1631, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class ComputTest {
 		p.setGender(Gender.FEMALE);
 		p.setWeight(Double.valueOf(60));
 		p.setAge(Integer.valueOf(16));
-		assertEquals(1478, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1478, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class ComputTest {
 		p.setGender(Gender.MALE);
 		p.setWeight(Double.valueOf(60));
 		p.setAge(Integer.valueOf(19));
-		assertEquals(1597, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1597, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class ComputTest {
 		p.setGender(Gender.FEMALE);
 		p.setWeight(Double.valueOf(60));
 		p.setAge(Integer.valueOf(19));
-		assertEquals(1378, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1378, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -88,7 +88,7 @@ public class ComputTest {
 		p.setGender(Gender.MALE);
 		p.setWeight(Double.valueOf(70));
 		p.setAge(Integer.valueOf(31));
-		assertEquals(1691, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1691, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -96,7 +96,7 @@ public class ComputTest {
 		p.setGender(Gender.FEMALE);
 		p.setWeight(Double.valueOf(70));
 		p.setAge(Integer.valueOf(31));
-		assertEquals(1438, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1438, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class ComputTest {
 		p.setGender(Gender.MALE);
 		p.setWeight(Double.valueOf(70));
 		p.setAge(Integer.valueOf(61));
-		assertEquals(1432, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1432, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
@@ -112,47 +112,47 @@ public class ComputTest {
 		p.setGender(Gender.FEMALE);
 		p.setWeight(Double.valueOf(70));
 		p.setAge(Integer.valueOf(61));
-		assertEquals(1331, Comput.getBMR(p, p.getWeight()), 0.01);
+		assertEquals(1331, Services.getBMR(p, p.getWeight()), 0.01);
 	}
 
 	@Test
 	public void idealWeightTest() {
-		assertEquals(63, Comput.getIdealWeight(pBoy), 0.01);
+		assertEquals(63, Services.getIdealWeight(pBoy), 0.01);
 	}
 
 	@Test
 	public void keepingWeightMTest() {
-		assertEquals(2555.2, Comput.getKcalForKeepingWeight(pBoy, pBoy.getWeight()), 0.01);
+		assertEquals(2555.2, Services.getKcalForKeepingWeight(pBoy, pBoy.getWeight()), 0.01);
 	}
 
 	@Test
 	public void keepingWeightFMTest() {
-		assertEquals(2440, Comput.getKcalForKeepingWeight(pGirl, pGirl.getWeight()), 0.01);
+		assertEquals(2440, Services.getKcalForKeepingWeight(pGirl, pGirl.getWeight()), 0.01);
 	}
 
 	@Test
 	public void losingWeightMTest() {
-		assertEquals(1756.7, Comput.getKcalForGentlyLosingWeight(pBoy, pBoy.getWeight()), 0.01);
+		assertEquals(1756.7, Services.getKcalForGentlyLosingWeight(pBoy, pBoy.getWeight()), 0.01);
 	}
 
 	@Test
 	public void losingWeightFMTest() {
-		assertEquals(1677.5, Comput.getKcalForGentlyLosingWeight(pGirl, pGirl.getWeight()), 0.01);
+		assertEquals(1677.5, Services.getKcalForGentlyLosingWeight(pGirl, pGirl.getWeight()), 0.01);
 	}
 
 	@Test
 	public void fatPercentageMTest() {
-		assertEquals(13.313, Comput.getFatPercentage(pBoy), 0.01);
+		assertEquals(13.313, Services.getFatPercentage(pBoy), 0.01);
 	}
 
 	@Test
 	public void fatPercentageFMTest() {
-		assertEquals(27.266, Comput.getFatPercentage(pGirl), 0.01);
+		assertEquals(27.266, Services.getFatPercentage(pGirl), 0.01);
 	}
 
 	@Test
 	public void essentialsFMLWLessThan30PFTest() {
-		Comput.setEssentials(pGirl);
+		Services.setEssentials(pGirl);
 		assertEquals(196.39, pGirl.getcH(), 0.01);
 		assertEquals(130.92, pGirl.getProtein(), 0.01);
 		assertEquals(36.07, pGirl.getFat(), 0.01);
@@ -162,7 +162,7 @@ public class ComputTest {
 	public void essentialsFMKWLessThan30PFTest() {
 		p = pGirl;
 		p.setGoal(Goals.KEEPING_WEIGHT);
-		Comput.setEssentials(pGirl);
+		Services.setEssentials(pGirl);
 		assertEquals(285.65, p.getcH(), 0.01);
 		assertEquals(190.43, p.getProtein(), 0.01);
 		assertEquals(52.47, p.getFat(), 0.01);
@@ -172,7 +172,7 @@ public class ComputTest {
 	public void essentialsFMLWMoreThan30PFTest() {
 		p = pGirl;
 		p.setWeight(Double.valueOf(95));
-		Comput.setEssentials(pGirl);
+		Services.setEssentials(pGirl);
 		assertEquals(188.25, pGirl.getcH(), 0.01);
 		assertEquals(125.5, pGirl.getProtein(), 0.01);
 		assertEquals(34.57, pGirl.getFat(), 0.01);
@@ -183,7 +183,7 @@ public class ComputTest {
 		p = pGirl;
 		p.setWeight(Double.valueOf(95));
 		p.setGoal(Goals.KEEPING_WEIGHT);
-		Comput.setEssentials(pGirl);
+		Services.setEssentials(pGirl);
 		assertEquals(273.81, pGirl.getcH(), 0.01);
 		assertEquals(182.54, pGirl.getProtein(), 0.01);
 		assertEquals(50.29, pGirl.getFat(), 0.01);
@@ -192,28 +192,28 @@ public class ComputTest {
 	@Test
 	public void updateGotBMRTest() {
 		p = pGirl;
-		Comput.updateGotBMR(p);
+		Services.updateGotBMR(p);
 		assertEquals(0, p.getGotBMR(), 0.01);
 	}
 
 	@Test
 	public void setGotCHTest() {
 		p = pGirl;
-		Comput.incGotCH(15.0, p);
+		Services.incGotCH(15.0, p);
 		assertEquals(15.0, p.getGotCH(), 0.01);
 	}
 
 	@Test
 	public void setGotProteinTest() {
 		p = pGirl;
-		Comput.incGotProtein(23.0, p);
+		Services.incGotProtein(23.0, p);
 		assertEquals(23.0, p.getGotProtein(), 0.01);
 	}
 
 	@Test
 	public void setGotFatTest() {
 		p = pGirl;
-		Comput.incGotFat(11.0,p);
+		Services.incGotFat(11.0,p);
 		assertEquals(11.0, p.getGotFat(), 0.01);
 	}
 
@@ -221,7 +221,7 @@ public class ComputTest {
 	public void setGotCHNotNullTest() {
 		p = pGirl;
 		p.setGotCH(10.0);
-		Comput.incGotCH(15.0,p);
+		Services.incGotCH(15.0,p);
 		assertEquals(25.0, p.getGotCH(), 0.01);
 	}
 
@@ -229,7 +229,7 @@ public class ComputTest {
 	public void setGotProteinNotNullTest() {
 		p = pGirl;
 		p.setGotProtein(10.0);
-		Comput.incGotProtein(23.0,p);
+		Services.incGotProtein(23.0,p);
 		assertEquals(33.0, p.getGotProtein(), 0.01);
 	}
 
@@ -237,7 +237,7 @@ public class ComputTest {
 	public void setGotFatNotNullTest() {
 		p = pGirl;
 		p.setGotFat(10.0);
-		Comput.incGotFat(11.0,p);
+		Services.incGotFat(11.0,p);
 		assertEquals(21.0, p.getGotFat(), 0.01);
 	}
 
@@ -246,7 +246,7 @@ public class ComputTest {
 		p = pGirl;
 		p.getAddings().add(new Adding(12.0, Nutrients.CH));
 		p.setGotCH(12.0);
-		Comput.undo(p);
+		Services.undo(p);
 		assertEquals(0.0, p.getGotCH(), 0.01);
 	}
 
@@ -255,7 +255,7 @@ public class ComputTest {
 		p = pGirl;
 		p.getAddings().add(new Adding(12.0, Nutrients.PROTEIN));
 		p.setGotProtein(12.0);
-		Comput.undo(p);
+		Services.undo(p);
 		assertEquals(0.0, p.getGotProtein(), 0.01);
 	}
 
@@ -264,7 +264,7 @@ public class ComputTest {
 		p = pGirl;
 		p.getAddings().add(new Adding(12.0, Nutrients.FAT));
 		p.setGotFat(12.0);
-		Comput.undo(p);
+		Services.undo(p);
 		assertEquals(0.0, p.getGotFat(), 0.01);
 	}
 	
@@ -272,7 +272,7 @@ public class ComputTest {
 	public void undoNoAddingTest() {
 		p = pGirl;
 		p.setGotCH(10.0);
-		Comput.undo(p);
+		Services.undo(p);
 	}
 	
 	@Test
@@ -280,7 +280,7 @@ public class ComputTest {
 		people.clear();
 		pGirl.setToday(LocalDate.now().minusDays(10));
 		people.add(pGirl);
-		Comput.resetGotNutrients(people);
+		Services.resetGotNutrients(people);
 		assertEquals(LocalDate.now(),pGirl.getToday());
 		assertEquals(0.0, pGirl.getGotCH(),0.01);
 		assertEquals(0.0, pGirl.getGotProtein(),0.01);
@@ -295,9 +295,9 @@ public class ComputTest {
 		pGirl.setGotCH(1.0);
 		pGirl.setGotFat(1.0);
 		pGirl.setGotProtein(1.0);
-		Comput.updateGotBMR(pGirl);
+		Services.updateGotBMR(pGirl);
 		people.add(pGirl);
-		Comput.resetGotNutrients(people);
+		Services.resetGotNutrients(people);
 		assertEquals(LocalDate.now(),pGirl.getToday());
 		assertEquals(1.0, pGirl.getGotCH(),0.01);
 		assertEquals(1.0, pGirl.getGotProtein(),0.01);
@@ -310,7 +310,7 @@ public class ComputTest {
 		people.clear();
 		pGirl.setToday(LocalDate.now().minusDays(1));
 		people.add(pGirl);
-		Comput.resetGotNutrients(people);
+		Services.resetGotNutrients(people);
 		assertEquals(LocalDate.now(),pGirl.getToday());
 		assertEquals(0.0, pGirl.getGotCH(),0.01);
 		assertEquals(0.0, pGirl.getGotProtein(),0.01);
@@ -327,7 +327,7 @@ public class ComputTest {
 		p.setToday(LocalDate.now().minusDays(2));
 		people.add(p);
 		
-		Comput.resetGotNutrients(people);
+		Services.resetGotNutrients(people);
 		assertEquals(7, p.getWeek().size());
 	}
 
@@ -336,7 +336,7 @@ public class ComputTest {
 		people.clear();
 		p.setToday(LocalDate.of(2016,05,11));
 		people.add(p);
-		Comput.resetGotNutrients(people);
+		Services.resetGotNutrients(people);
 		assertEquals(LocalDate.of(2016, 05, 11), p.getWeek().get(0).getDate());
 	}
 	
@@ -345,9 +345,11 @@ public class ComputTest {
 		people.clear();
 		pGirl.getAddings().add(new Adding(11.0, Nutrients.CH));
 		people.add(pGirl);
-		Comput.resetUndos(people);
+		Services.resetUndos(people);
 		for(Person person : people){
 			assertEquals(0, person.getAddings().size());
 		}
 	}
+	
+	
 }

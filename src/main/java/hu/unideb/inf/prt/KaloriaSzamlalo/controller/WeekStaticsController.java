@@ -12,11 +12,12 @@ public class WeekStaticsController {
 
 	private Person person;
 
+	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setPerson(Person person) {
 		this.person = person;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked", "checkstyle:javadocmethod"})
 	public Scene setBars() {
 		CategoryAxis xAxis = new CategoryAxis();
 		NumberAxis yAxis = new NumberAxis();

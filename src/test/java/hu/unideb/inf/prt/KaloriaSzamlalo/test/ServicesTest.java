@@ -2,13 +2,24 @@ package hu.unideb.inf.prt.KaloriaSzamlalo.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
+import hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Adding;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.DailyGotNutreints;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Gender;
@@ -24,7 +35,6 @@ import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
  */
 public class ServicesTest {
 
-	
 	private Person pBoy;
 	private Person pGirl;
 	private Person p;
@@ -32,10 +42,11 @@ public class ServicesTest {
 
 	@Before
 	public void setUp() throws Exception {
-		
+
 		p = new Person();
-		pBoy = new Person("janika","János","Kis", Double.valueOf(170), Double.valueOf(60), 20, Gender.MALE, Goals.LOSING_WEIGHT);
-		pGirl = new Person("annika","Annabella","Kis", Double.valueOf(173), Double.valueOf(70), 20, Gender.FEMALE,
+		pBoy = new Person("janika", "János", "Kis", Double.valueOf(170), Double.valueOf(60), 20, Gender.MALE,
+				Goals.LOSING_WEIGHT);
+		pGirl = new Person("annika", "Annabella", "Kis", Double.valueOf(173), Double.valueOf(70), 20, Gender.FEMALE,
 				Goals.LOSING_WEIGHT);
 		people = new ArrayList<Person>();
 	}
@@ -218,7 +229,7 @@ public class ServicesTest {
 	@Test
 	public void setGotFatTest() {
 		p = pGirl;
-		Services.incGotFat(11.0,p);
+		Services.incGotFat(11.0, p);
 		assertEquals(11.0, p.getGotFat(), 0.01);
 	}
 
@@ -226,7 +237,7 @@ public class ServicesTest {
 	public void setGotCHNotNullTest() {
 		p = pGirl;
 		p.setGotCH(10.0);
-		Services.incGotCH(15.0,p);
+		Services.incGotCH(15.0, p);
 		assertEquals(25.0, p.getGotCH(), 0.01);
 	}
 
@@ -234,7 +245,7 @@ public class ServicesTest {
 	public void setGotProteinNotNullTest() {
 		p = pGirl;
 		p.setGotProtein(10.0);
-		Services.incGotProtein(23.0,p);
+		Services.incGotProtein(23.0, p);
 		assertEquals(33.0, p.getGotProtein(), 0.01);
 	}
 
@@ -242,7 +253,7 @@ public class ServicesTest {
 	public void setGotFatNotNullTest() {
 		p = pGirl;
 		p.setGotFat(10.0);
-		Services.incGotFat(11.0,p);
+		Services.incGotFat(11.0, p);
 		assertEquals(21.0, p.getGotFat(), 0.01);
 	}
 
@@ -272,29 +283,29 @@ public class ServicesTest {
 		Services.undo(p);
 		assertEquals(0.0, p.getGotFat(), 0.01);
 	}
-	
+
 	@Test
 	public void undoNoAddingTest() {
 		p = pGirl;
 		p.setGotCH(10.0);
 		Services.undo(p);
 	}
-	
+
 	@Test
-	public void resetGotNutrientsAfterTest(){
+	public void resetGotNutrientsAfterTest() {
 		people.clear();
 		pGirl.setToday(LocalDate.now().minusDays(10));
 		people.add(pGirl);
 		Services.resetGotNutrients(people);
-		assertEquals(LocalDate.now(),pGirl.getToday());
-		assertEquals(0.0, pGirl.getGotCH(),0.01);
-		assertEquals(0.0, pGirl.getGotProtein(),0.01);
-		assertEquals(0.0, pGirl.getGotFat(),0.01);
-		assertEquals(0.0, pGirl.getGotBMR(),0.01);
+		assertEquals(LocalDate.now(), pGirl.getToday());
+		assertEquals(0.0, pGirl.getGotCH(), 0.01);
+		assertEquals(0.0, pGirl.getGotProtein(), 0.01);
+		assertEquals(0.0, pGirl.getGotFat(), 0.01);
+		assertEquals(0.0, pGirl.getGotBMR(), 0.01);
 	}
-	
+
 	@Test
-	public void resetGotNutrientsNowTest(){
+	public void resetGotNutrientsNowTest() {
 		people.clear();
 		pGirl.setToday(LocalDate.now());
 		pGirl.setGotCH(1.0);
@@ -303,124 +314,180 @@ public class ServicesTest {
 		Services.updateGotBMR(pGirl);
 		people.add(pGirl);
 		Services.resetGotNutrients(people);
-		assertEquals(LocalDate.now(),pGirl.getToday());
-		assertEquals(1.0, pGirl.getGotCH(),0.01);
-		assertEquals(1.0, pGirl.getGotProtein(),0.01);
-		assertEquals(1.0, pGirl.getGotFat(),0.01);
-		assertEquals(3.0, pGirl.getGotBMR(),0.01);
+		assertEquals(LocalDate.now(), pGirl.getToday());
+		assertEquals(1.0, pGirl.getGotCH(), 0.01);
+		assertEquals(1.0, pGirl.getGotProtein(), 0.01);
+		assertEquals(1.0, pGirl.getGotFat(), 0.01);
+		assertEquals(3.0, pGirl.getGotBMR(), 0.01);
 	}
+
 	@Test
-	public void resetGotNutrientsBeforeTest(){
+	public void resetGotNutrientsBeforeTest() {
 		people.clear();
 		pGirl.setToday(LocalDate.now().plusDays(10));
 		people.add(pGirl);
 		Services.resetGotNutrients(people);
-		assertEquals(LocalDate.now(),pGirl.getToday());
-		assertEquals(0.0, pGirl.getGotCH(),0.01);
-		assertEquals(0.0, pGirl.getGotProtein(),0.01);
-		assertEquals(0.0, pGirl.getGotFat(),0.01);
-		assertEquals(0.0, pGirl.getGotBMR(),0.01);
+		assertEquals(LocalDate.now(), pGirl.getToday());
+		assertEquals(0.0, pGirl.getGotCH(), 0.01);
+		assertEquals(0.0, pGirl.getGotProtein(), 0.01);
+		assertEquals(0.0, pGirl.getGotFat(), 0.01);
+		assertEquals(0.0, pGirl.getGotBMR(), 0.01);
 	}
-	
+
 	@Test
-	public void resetGotNutrientsTodayTest(){
+	public void resetGotNutrientsTodayTest() {
 		people.clear();
 		pGirl.setToday(LocalDate.now().minusDays(1));
 		people.add(pGirl);
 		Services.resetGotNutrients(people);
-		assertEquals(LocalDate.now(),pGirl.getToday());
-		assertEquals(0.0, pGirl.getGotCH(),0.01);
-		assertEquals(0.0, pGirl.getGotProtein(),0.01);
-		assertEquals(0.0, pGirl.getGotFat(),0.01);
-		assertEquals(0.0, pGirl.getGotBMR(),0.01);
+		assertEquals(LocalDate.now(), pGirl.getToday());
+		assertEquals(0.0, pGirl.getGotCH(), 0.01);
+		assertEquals(0.0, pGirl.getGotProtein(), 0.01);
+		assertEquals(0.0, pGirl.getGotFat(), 0.01);
+		assertEquals(0.0, pGirl.getGotBMR(), 0.01);
 	}
-	
+
 	@Test
-	public void resetGotNutrientsWeekTest(){
+	public void resetGotNutrientsWeekTest() {
 		people.clear();
-		for(int i = 0;i < 7;i++){
-			p.getWeek().add(new DailyGotNutreints());			
+		for (int i = 0; i < 7; i++) {
+			p.getWeek().add(new DailyGotNutreints());
 		}
 		p.setToday(LocalDate.now().minusDays(2));
 		people.add(p);
-		
+
 		Services.resetGotNutrients(people);
 		assertEquals(7, p.getWeek().size());
 	}
 
 	@Test
-	public void resetGotNutrientsDayTest(){
+	public void resetGotNutrientsDayTest() {
 		people.clear();
-		p.setToday(LocalDate.of(2016,05,11));
+		p.setToday(LocalDate.of(2016, 05, 11));
 		people.add(p);
 		Services.resetGotNutrients(people);
 		assertEquals(LocalDate.of(2016, 05, 11), p.getWeek().get(0).getDate());
 	}
-	
+
 	@Test
-	public void resetUndosTest(){
+	public void resetUndosTest() {
 		people.clear();
 		pGirl.getAddings().add(new Adding(11.0, Nutrients.CH));
 		people.add(pGirl);
 		Services.resetUndos(people);
-		for(Person person : people){
+		for (Person person : people) {
 			assertEquals(0, person.getAddings().size());
 		}
 	}
-	
+
 	@Test
-	public void fillEmptyDaysSizeTest(){
+	public void fillEmptyDaysSizeTest() {
 		p = pGirl;
 		p.getWeek().clear();
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(6)));
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(5)));
 		Services.fillEmptyDays(p.getWeek());
-		assertEquals(6,p.getWeek().size());
+		assertEquals(6, p.getWeek().size());
 	}
+
 	@Test
-	public void fillEmptyDaysPlusSizeTest(){
+	public void fillEmptyDaysPlusSizeTest() {
 		p = pGirl;
 		p.getWeek().clear();
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(9)));
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(8)));
 		Services.fillEmptyDays(p.getWeek());
-		assertEquals(7,p.getWeek().size());
+		assertEquals(7, p.getWeek().size());
 	}
+
 	@Test
-	public void fillEmptyDaysGapGreaterThanWeekSizeTest(){
+	public void fillEmptyDaysGapGreaterThanWeekSizeTest() {
 		p = pGirl;
 		p.getWeek().clear();
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().plusDays(1)));
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().plusDays(2)));
 		Services.fillEmptyDays(p.getWeek());
-		assertEquals(0,p.getWeek().size());
+		assertEquals(0, p.getWeek().size());
 	}
+
 	@Test
-	public void fillEmptyDaysGapLowerThanWeekSizeTest(){
+	public void fillEmptyDaysGapLowerThanWeekSizeTest() {
 		p = pGirl;
 		p.getWeek().clear();
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now()));
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().plusDays(1)));
 		Services.fillEmptyDays(p.getWeek());
-		assertEquals(0,p.getWeek().size());
+		assertEquals(0, p.getWeek().size());
 	}
-	
+
 	@Test
-	public void fillEmptyDaysGapEqualsZeroTest(){
+	public void fillEmptyDaysGapEqualsZeroTest() {
 		p = pGirl;
 		p.getWeek().clear();
 		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now()));
 		Services.fillEmptyDays(p.getWeek());
-		assertEquals(1,p.getWeek().size());
+		assertEquals(1, p.getWeek().size());
 	}
-	
+
 	@Test
-	public void fillEmptyDaysWeekSizeEqualsZeroTest(){
+	public void fillEmptyDaysWeekSizeEqualsZeroTest() {
 		p = pGirl;
 		p.getWeek().clear();
 		Services.fillEmptyDays(p.getWeek());
 		assertEquals(0, p.getWeek().size());
 	}
+
+	@Rule
+	public TemporaryFolder tmp = new TemporaryFolder();
 	
+	public PersonDAOImpl dao = new PersonDAOImpl();
 	
+	@Test
+	public void persistPeopleTest() {
+		
+		try {
+			tmp.create();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p = pGirl;
+		p.setRemoved(false);
+		people.clear();
+		people.add(p);
+		Main.getPeople().clear();
+		dao.savePeople(people, Paths.get(tmp.getRoot().toString(),p.getUserName() + ".json"));
+		dao.loadPeople(tmp.getRoot().toPath());
+		assertEquals(p.toString(), Main.getPeople().get(0).toString());
+		
+		
+	}
+	
+	@Test
+	public void persistPeopleRemovedTest(){
+		try {
+			tmp.create();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p = pGirl;
+		p.setRemoved(true);
+		people.clear();
+		people.add(p);
+		Main.getPeople().clear();
+		Gson gson = new GsonBuilder().create();
+		
+		try {
+			FileWriter fileWriter = new FileWriter(new File(tmp.getRoot().toString(), p.getUserName() + ".json"));
+			gson.toJson(p, fileWriter);
+			fileWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dao.loadPeople(tmp.getRoot().toPath());
+		dao.savePeople(people, Paths.get(tmp.getRoot().toString(), p.getUserName() + ".json"));
+		assertEquals(false, new File(tmp.getRoot().toString(),p.getUserName()+ ".json").exists());
+	}
 }

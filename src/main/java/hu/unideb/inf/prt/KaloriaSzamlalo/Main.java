@@ -63,7 +63,7 @@ public class Main extends Application {
 		main = new Main();
 
 		PersonDAOImpl dao = new PersonDAOImpl();
-		dao.loadPeople();
+		dao.loadPeople(null);
 
 		Services.resetGotNutrients(Main.getPeople());
 		for(Person person : getPeople()){
@@ -78,7 +78,7 @@ public class Main extends Application {
 	/**
 	 * A main függvény. Ez indítja el a grafikus felületet valamint annak
 	 * leállásakor meghívja
-	 * {@link hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl#savePeople(java.util.List)}
+	 * {@link hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl#savePeople(java.util.List, java.nio.file.Path)}
 	 * függvényt amely perzisztáztálja a felhasználókat.
 	 * 
 	 * @param args indításkor megadott argmentumtömb.
@@ -87,7 +87,7 @@ public class Main extends Application {
 		launch(args);
 		Services.resetUndos(getPeople());
 		PersonDAOImpl savePeople = new PersonDAOImpl();
-		savePeople.savePeople(getPeople());
+		savePeople.savePeople(getPeople(),null);
 	}
 
 	@SuppressWarnings("checkstyle:javadocmethod")

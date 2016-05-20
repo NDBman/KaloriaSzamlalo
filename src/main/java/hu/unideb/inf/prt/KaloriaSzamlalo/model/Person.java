@@ -517,4 +517,15 @@ public class Person {
 		this.removed = removed;
 	}
 
+	@Override
+	public String toString() {
+		return "Person [userName=" + userName + ", firstName=" + firstName + ", surName=" + surName + ", height="
+				+ height + ", weight=" + weight + ", age=" + age + ", gender=" + gender + ", goal=" + goal + ", cH="
+				+ cH + ", protein=" + protein + ", fat=" + fat + ", gotCH=" + gotCH + ", gotProtein=" + gotProtein
+				+ ", gotFat=" + gotFat + ", bMR=" + bMR + ", gotBMR=" + gotBMR + ", addings=" + addings + ", today="
+				+ today + ", week=" + week + ", removed=" + removed + "]";
+	}
+	
+	
+
 }

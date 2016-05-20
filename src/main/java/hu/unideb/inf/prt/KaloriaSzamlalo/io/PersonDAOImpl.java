@@ -32,9 +32,10 @@ public class PersonDAOImpl implements PersonDAO {
 	 * prt.KaloriaSzamlalo.Main)
 	 */
 	@Override
-	public void loadPeople() {
+	public void loadPeople(Path path) {
 		Gson gson = new GsonBuilder().create();
-		Path path = Paths.get(System.getProperty("user.home"), "save");
+		if (path == null)
+			path = Paths.get(System.getProperty("user.home"), "save");
 		if (path.toFile().exists()) {
 			File dir = path.toFile();
 			for (File f : dir.listFiles()) {
@@ -62,20 +63,27 @@ public class PersonDAOImpl implements PersonDAO {
 	 * hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAO#savePeople(java.util.List)
 	 */
 	@Override
-	public void savePeople(List<Person> people) {
+	public void savePeople(List<Person> people, Path path) {
 		Gson gson = new GsonBuilder().create();
 
 		for (Person person : people) {
 
 			try {
-				
+
 				if (person.isRemoved()) {
 					Main.getLogger().info("Törölt állomány elérési útvonala: "
 							+ Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json"));
-					Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json").toFile()
-							.delete();
+					if (path == null) {
+						Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json").toFile()
+								.delete();
+					}else{
+						path.toFile()
+						.delete();
+					}
 				} else {
-					Path path = Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json");
+					if (path == null) {
+						path = Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json");
+					}
 					FileWriter fileWriter = new FileWriter(path.toFile());
 					gson.toJson(person, fileWriter);
 					fileWriter.close();

@@ -8,6 +8,10 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class WeekStaticsController {
 
 	private Person person;

@@ -22,10 +22,12 @@
           <Menu mnemonicParsing="false" text="Felhasználó">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleLogOut" text="Kijelentkezés" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Felhasználó törlése" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="Szerkesztés">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleUndo" text="Visszavonás" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDataEditor" text="Saját adatok szerkesztése" />
               </items>
             </Menu>
         </menus>
@@ -44,11 +46,6 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <Button layoutX="460.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleDataEditor" text="Saját adatok szerkesztése" AnchorPane.rightAnchor="20.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c0f2a6" height="270.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Label layoutX="32.0" layoutY="100.0" text="Napi Kalória szükséglet (grammban megadva):" AnchorPane.leftAnchor="40.0">
          <font>

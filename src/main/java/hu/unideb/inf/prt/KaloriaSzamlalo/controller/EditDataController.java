@@ -14,6 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class EditDataController {
 
 	private Person person;
@@ -149,4 +153,6 @@ public class EditDataController {
 	public void handleCancel() {
 		stage.close();
 	}
+	
+	
 }

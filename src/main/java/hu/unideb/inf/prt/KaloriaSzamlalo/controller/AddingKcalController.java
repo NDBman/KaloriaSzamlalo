@@ -14,6 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class AddingKcalController {
 
 	private Person person;

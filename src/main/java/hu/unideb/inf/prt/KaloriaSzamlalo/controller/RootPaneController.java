@@ -11,6 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class RootPaneController {
 
 	private Main main;
@@ -109,6 +113,14 @@ public class RootPaneController {
 		Main.getLogger().info("A felhasználó megynomta a Visszavonás gombot.");
 		Services.undo(person);
 		setLabels();
+	}
+	
+	@FXML
+	@SuppressWarnings("checkstyle:javadocmethod")
+	public void handleDelete(){
+		person.setRemoved(true);
+		stage.close();
+		main.createEntry();
 	}
 
 }

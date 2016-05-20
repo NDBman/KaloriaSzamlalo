@@ -3,11 +3,17 @@ package hu.unideb.inf.prt.KaloriaSzamlalo.controller;
 import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class EntryController {
 
 	private Stage stage;
@@ -27,7 +33,13 @@ public class EntryController {
 	@SuppressWarnings("checkstyle:javadocmethod")
 	public void setMain(Main main) {
 		this.main = main;
-		personTable.setItems(this.main.getPeople());
+		ObservableList<Person> people = FXCollections.observableArrayList();
+		for(Person person : Main.getPeople()){
+			if(!person.isRemoved()){
+				people.add(person);
+			}
+		}
+		personTable.setItems(people);
 	}
 
 	@FXML

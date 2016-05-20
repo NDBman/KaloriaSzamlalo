@@ -14,6 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * @author Szabó Nándor Attila
+ *
+ */
 public class RegistrationController {
 
 	private Main main;
@@ -155,9 +159,8 @@ public class RegistrationController {
 			person = new Person(userField.getText(), firstNameField.getText(), surNameField.getText(),
 					Double.valueOf(heightField.getText()), Double.valueOf(weightField.getText()),
 					Integer.parseInt(ageField.getText()), gender, goal);
-			main.getPeople().add(person);
+			Main.getPeople().add(person);
 			
-			main.createEntry();
 			stage.close();
 		}
 		

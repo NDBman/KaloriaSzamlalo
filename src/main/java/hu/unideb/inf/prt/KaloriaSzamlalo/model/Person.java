@@ -68,24 +68,49 @@ public class Person {
 	private Double fat;
 
 	/**
-	 * Üres konstruktora a Person osztálynak.
+	 * A felhasználó a nap folyamán már bevitt szénhidrát mennyisége.
 	 */
-
 	private Double gotCH;
 
+	/**
+	 * A felhasználó a nap folyamán már bevitt fehérje mennyisége.
+	 */
 	private Double gotProtein;
 
+	/**
+	 * A felashználó a nap folyamán már bevitt zsír mennyisége.
+	 */
 	private Double gotFat;
 
+	/**
+	 * A felhasználó napi alapanyagcsere szükséglete.
+	 */
 	private Double bMR;
 
+	/**
+	 * A felhasználó a nap folyamán már bevitt alapanyagcsere mennysiége.
+	 */
 	private Double gotBMR;
 
+	/**
+	 * A felhasználónak a program inditása óta bevitt kalória mennyiségeit és típusait tartalmazó lista.
+	 */
 	private List<Adding> addings = new ArrayList<Adding>();
 
+	/**
+	 * Azt a dátumot tartalmazza, hogy mikor lett példányosítva a felhasználó.
+	 */
 	private LocalDate today;
 
+	/**
+	 * A felhasználó heti statisztikáját tarlmazó lista.
+	 */
 	private List<DailyGotNutreints> week = new ArrayList<DailyGotNutreints>();
+
+	/**
+	 * Jelzi, hogy a felhasználó törölve lett-e.
+	 */
+	private boolean removed = false;
 
 	/**
 	 * Üres konstruktora a Person osztálynak.
@@ -370,7 +395,8 @@ public class Person {
 	/**
 	 * Beállítja a nap folyamán már bevitt szénhidrát mennyiséget.
 	 * 
-	 * @param gotCH A nap folyamán már bevitt szénhidrát mennyiség.
+	 * @param gotCH
+	 *            A nap folyamán már bevitt szénhidrát mennyiség.
 	 */
 	public void setGotCH(Double gotCH) {
 		this.gotCH = gotCH;
@@ -379,7 +405,8 @@ public class Person {
 	/**
 	 * Beállítja a nap folyamán már bevitt fehérje mennyiséget.
 	 * 
-	 * @param gotProtein A nap folyamán már bevitt fehérje mennyiség.
+	 * @param gotProtein
+	 *            A nap folyamán már bevitt fehérje mennyiség.
 	 */
 	public void setGotProtein(Double gotProtein) {
 		this.gotProtein = gotProtein;
@@ -388,7 +415,8 @@ public class Person {
 	/**
 	 * Beállítja a nap folyamán már bevitt zsír mennyiséget.
 	 * 
-	 * @param gotFat A nap folyamán már bevitt zsír mennyiség.
+	 * @param gotFat
+	 *            A nap folyamán már bevitt zsír mennyiség.
 	 */
 	public void setGotFat(Double gotFat) {
 		this.gotFat = gotFat;
@@ -406,7 +434,8 @@ public class Person {
 	/**
 	 * Beállítja a napi alapanyagcsere szükségletet.
 	 * 
-	 * @param bMR A napi alapanyagcsereszükséglet.
+	 * @param bMR
+	 *            A napi alapanyagcsereszükséglet.
 	 */
 	public void setbMR(Double bMR) {
 		this.bMR = bMR;
@@ -424,7 +453,8 @@ public class Person {
 	/**
 	 * Beállítja a nap folyamán már bevitt alapanyagcsere szükségletet.
 	 * 
-	 * @param gotBMR A nap folyamán már bevitt alapanyagcsere szükséglet.
+	 * @param gotBMR
+	 *            A nap folyamán már bevitt alapanyagcsere szükséglet.
 	 */
 	public void setGotBMR(Double gotBMR) {
 		this.gotBMR = gotBMR;
@@ -451,7 +481,8 @@ public class Person {
 	/**
 	 * Visszaadja az utolsó programba betöltés napjának dátumát.
 	 * 
-	 * @param today Az utolsó programba betöltés dátuma.
+	 * @param today
+	 *            Az utolsó programba betöltés dátuma.
 	 */
 	public void setToday(LocalDate today) {
 		this.today = today;
@@ -464,6 +495,26 @@ public class Person {
 	 */
 	public List<DailyGotNutreints> getWeek() {
 		return week;
+	}
+
+	/**
+	 * Igaz értéket ad vissza ha törölve lett a felhasználó. Ez jelzi a
+	 * {@link hu.unideb.inf.prt.KaloriaSzamlalo.io.PersonDAOImpl} számára, hogy
+	 * perzisztáláskor ne mentse el és a már meglévő mentést törölje.
+	 * 
+	 * @return Hogy törölve van-e a felhasználó.
+	 */
+	public boolean isRemoved() {
+		return removed;
+	}
+
+	/**
+	 * Beállítja, hogy a felhasznó törölve van-e.
+	 * 
+	 * @param removed A felhasználó töröltségét jelző értéket (igaz / hamis).
+	 */
+	public void setRemoved(boolean removed) {
+		this.removed = removed;
 	}
 
 }

@@ -17,6 +17,11 @@ import hu.unideb.inf.prt.KaloriaSzamlalo.model.Nutrients;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
 import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
 
+/**
+ * 
+ * @author Szabó Nándor Attila
+ *
+ */
 public class ServicesTest {
 
 	

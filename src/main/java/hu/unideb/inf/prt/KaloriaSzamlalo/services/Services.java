@@ -1,9 +1,7 @@
 package hu.unideb.inf.prt.KaloriaSzamlalo.services;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
-import java.time.temporal.ChronoUnit;
 
 import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Adding;
@@ -256,11 +254,12 @@ public class Services {
 	/**
 	 * Visszaállítja a felhasználók által a nap folyamán bevitt
 	 * kalóriamennyiséget ha már a legutoljára bevitt kalóriamennyiség napja
-	 * elmúlt.
+	 * elmúlt. Valamint figyeli azt is, hogy ha vissza lett állítva az idő akkor
+	 * is helyen mutassaa az adatokat. A "jóvőben" szereplő értékeket törli és
+	 * az "aznapit" is nullázza.
 	 * 
 	 * @param people
-	 *            A felahsználók listája aminek a nap folyamán bevitt
-	 *            kalórimennyiségét nullázzuk.
+	 *            A felhasználókat tartalmazó lista amikvel számol a metódus.
 	 */
 	public static void resetGotNutrients(List<Person> people) {
 		for (Person person : people) {
@@ -270,6 +269,12 @@ public class Services {
 					person.getWeek().remove(0);
 				person.getWeek().add(new DailyGotNutreints(person.getGotCH(), person.getGotProtein(),
 						person.getGotFat(), person.getToday()));
+				person.setToday(LocalDate.now());
+				person.setGotCH(0.0);
+				person.setGotProtein(0.0);
+				person.setGotFat(0.0);
+				person.setGotBMR(0.0);
+			} else if(LocalDate.now().isBefore(person.getToday())) {
 				person.setToday(LocalDate.now());
 				person.setGotCH(0.0);
 				person.setGotProtein(0.0);
@@ -293,13 +298,20 @@ public class Services {
 		}
 	}
 
+	/**
+	 * Ha már több napja nem nyitottuk meg a programunkat akkor a kihagyott
+	 * napokat a statisztikban feltölti üres helyekkel. Valamint az
+	 * idővisszaállításra is figyel.
+	 * 
+	 * @param week Egy felhasználó heti statisztikáját tartalmazó lista.
+	 */
 	public static void fillEmptyDays(List<DailyGotNutreints> week) {
 		int gap;
 
 		if (week.size() >= 1) {
 			Main.getLogger().info("Útolsó megnyitás óta eltelt napok: "
 					+ week.get(week.size() - 1).getDate().until(LocalDate.now()).getDays());
-			if ((gap = week.get(week.size() - 1).getDate().until(LocalDate.now()).getDays()) > 1) {
+			if ((gap = week.get(week.size() - 1).getDate().until(LocalDate.now()).getDays()) > 0) {
 
 				for (int i = 0; i < gap - 1; i++) {
 					DailyGotNutreints filler = new DailyGotNutreints(0.0, 0.0, 0.0,
@@ -316,8 +328,8 @@ public class Services {
 			} else if (gap < 0) {
 				gap = Math.abs(gap);
 				if (gap < week.size())
-					for (int i = 0; i < gap; i++) {
-						Main.getLogger().info("Week size: " + week.size() + " Gap " + gap);
+					for (int i = 0; i <= gap; i++) {
+						Main.getLogger().info("Week mérete: " + week.size() + " Gap méret: " + gap);
 						week.remove(week.size() - 1);
 					}
 				else

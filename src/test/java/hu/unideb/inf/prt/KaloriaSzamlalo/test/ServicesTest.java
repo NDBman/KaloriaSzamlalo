@@ -304,6 +304,18 @@ public class ServicesTest {
 		assertEquals(1.0, pGirl.getGotFat(),0.01);
 		assertEquals(3.0, pGirl.getGotBMR(),0.01);
 	}
+	@Test
+	public void resetGotNutrientsBeforeTest(){
+		people.clear();
+		pGirl.setToday(LocalDate.now().plusDays(10));
+		people.add(pGirl);
+		Services.resetGotNutrients(people);
+		assertEquals(LocalDate.now(),pGirl.getToday());
+		assertEquals(0.0, pGirl.getGotCH(),0.01);
+		assertEquals(0.0, pGirl.getGotProtein(),0.01);
+		assertEquals(0.0, pGirl.getGotFat(),0.01);
+		assertEquals(0.0, pGirl.getGotBMR(),0.01);
+	}
 	
 	@Test
 	public void resetGotNutrientsTodayTest(){
@@ -349,6 +361,60 @@ public class ServicesTest {
 		for(Person person : people){
 			assertEquals(0, person.getAddings().size());
 		}
+	}
+	
+	@Test
+	public void fillEmptyDaysSizeTest(){
+		p = pGirl;
+		p.getWeek().clear();
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(6)));
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(5)));
+		Services.fillEmptyDays(p.getWeek());
+		assertEquals(6,p.getWeek().size());
+	}
+	@Test
+	public void fillEmptyDaysPlusSizeTest(){
+		p = pGirl;
+		p.getWeek().clear();
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(9)));
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().minusDays(8)));
+		Services.fillEmptyDays(p.getWeek());
+		assertEquals(7,p.getWeek().size());
+	}
+	@Test
+	public void fillEmptyDaysGapGreaterThanWeekSizeTest(){
+		p = pGirl;
+		p.getWeek().clear();
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().plusDays(1)));
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().plusDays(2)));
+		Services.fillEmptyDays(p.getWeek());
+		assertEquals(0,p.getWeek().size());
+	}
+	@Test
+	public void fillEmptyDaysGapLowerThanWeekSizeTest(){
+		p = pGirl;
+		p.getWeek().clear();
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now()));
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now().plusDays(1)));
+		Services.fillEmptyDays(p.getWeek());
+		assertEquals(0,p.getWeek().size());
+	}
+	
+	@Test
+	public void fillEmptyDaysGapEqualsZeroTest(){
+		p = pGirl;
+		p.getWeek().clear();
+		p.getWeek().add(new DailyGotNutreints(1.0, 1.0, 1.0, LocalDate.now()));
+		Services.fillEmptyDays(p.getWeek());
+		assertEquals(1,p.getWeek().size());
+	}
+	
+	@Test
+	public void fillEmptyDaysWeekSizeEqualsZeroTest(){
+		p = pGirl;
+		p.getWeek().clear();
+		Services.fillEmptyDays(p.getWeek());
+		assertEquals(0, p.getWeek().size());
 	}
 	
 	

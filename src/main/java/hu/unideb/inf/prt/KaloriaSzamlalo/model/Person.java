@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
 import hu.unideb.inf.prt.KaloriaSzamlalo.services.Services;
 
 /**

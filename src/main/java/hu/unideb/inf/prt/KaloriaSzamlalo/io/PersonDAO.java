@@ -2,7 +2,6 @@ package hu.unideb.inf.prt.KaloriaSzamlalo.io;
 
 import java.util.List;
 
-import hu.unideb.inf.prt.KaloriaSzamlalo.Main;
 import hu.unideb.inf.prt.KaloriaSzamlalo.model.Person;
 
 

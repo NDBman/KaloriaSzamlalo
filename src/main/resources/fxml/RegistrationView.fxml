@@ -43,10 +43,10 @@
             <TextField fx:id="userField" promptText="Kötelező kitölteni!" GridPane.rowIndex="1" />
             <TextField fx:id="surNameField" promptText="Kötelező kitölteni!" GridPane.rowIndex="3" />
             <TextField fx:id="firstNameField" promptText="Kötelező kitölteni!" GridPane.rowIndex="5" />
+            <ComboBox fx:id="genderCBox" prefHeight="27.0" prefWidth="180.0" promptText="Nem:" GridPane.rowIndex="6" />
             <TextField fx:id="ageField" maxWidth="180.0" promptText="Kötelező kitölteni!!" GridPane.rowIndex="8" />
             <TextField fx:id="weightField" maxWidth="180.0" promptText="Kötelező kitölteni!" GridPane.rowIndex="10" />
             <TextField fx:id="heightField" maxWidth="180.0" promptText="Kötelező kitölteni!" GridPane.rowIndex="12" />
-            <ComboBox fx:id="genderCBox" prefHeight="27.0" prefWidth="180.0" promptText="Nem:" GridPane.rowIndex="6" />
             <ComboBox fx:id="goalCBox" prefHeight="27.0" prefWidth="180.0" promptText="Cél:" GridPane.rowIndex="13" />
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Mégse" GridPane.rowIndex="14" />
             <Button mnemonicParsing="false" onAction="#handleRegistration" prefWidth="100.0" text="Regisztrálok" GridPane.halignment="RIGHT" GridPane.rowIndex="14" />

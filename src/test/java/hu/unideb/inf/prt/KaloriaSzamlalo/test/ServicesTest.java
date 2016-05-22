@@ -439,55 +439,38 @@ public class ServicesTest {
 
 	@Rule
 	public TemporaryFolder tmp = new TemporaryFolder();
-	
+
 	public PersonDAOImpl dao = new PersonDAOImpl();
-	
+
 	@Test
-	public void persistPeopleTest() {
-		
-		try {
-			tmp.create();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void persistPeopleTest() throws IOException {
+		tmp.create();
 		p = pGirl;
 		p.setRemoved(false);
 		people.clear();
 		people.add(p);
 		Main.getPeople().clear();
-		dao.savePeople(people, Paths.get(tmp.getRoot().toString(),p.getUserName() + ".json"));
+		dao.savePeople(people, Paths.get(tmp.getRoot().toString()));
 		dao.loadPeople(tmp.getRoot().toPath());
 		assertEquals(p.toString(), Main.getPeople().get(0).toString());
-		
-		
+
 	}
-	
+
 	@Test
-	public void persistPeopleRemovedTest(){
-		try {
-			tmp.create();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void persistPeopleRemovedTest() throws IOException {
+		tmp.create();
 		p = pGirl;
 		p.setRemoved(true);
 		people.clear();
 		people.add(p);
 		Main.getPeople().clear();
 		Gson gson = new GsonBuilder().create();
-		
-		try {
-			FileWriter fileWriter = new FileWriter(new File(tmp.getRoot().toString(), p.getUserName() + ".json"));
-			gson.toJson(p, fileWriter);
-			fileWriter.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		FileWriter fileWriter = new FileWriter(new File(tmp.getRoot().toString(), p.getUserName() + ".json"));
+		gson.toJson(p, fileWriter);
+		fileWriter.close();
 		dao.loadPeople(tmp.getRoot().toPath());
-		dao.savePeople(people, Paths.get(tmp.getRoot().toString(), p.getUserName() + ".json"));
-		assertEquals(false, new File(tmp.getRoot().toString(),p.getUserName()+ ".json").exists());
+		dao.savePeople(people, Paths.get(tmp.getRoot().toString()));
+		assertEquals(false, new File(tmp.getRoot().toString(), p.getUserName() + ".json").exists());
 	}
 }

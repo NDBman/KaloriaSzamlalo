@@ -86,8 +86,8 @@ public class Main extends Application {
 	public static void main(String args[]) {
 		launch(args);
 		Services.resetUndos(getPeople());
-		PersonDAOImpl savePeople = new PersonDAOImpl();
-		savePeople.savePeople(getPeople(),null);
+		PersonDAOImpl dao = new PersonDAOImpl();
+		dao.savePeople(getPeople(),null);
 	}
 
 	@SuppressWarnings("checkstyle:javadocmethod")

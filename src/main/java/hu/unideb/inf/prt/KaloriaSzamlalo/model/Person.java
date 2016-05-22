@@ -110,7 +110,7 @@ public class Person {
 	/**
 	 * Jelzi, hogy a felhasználó törölve lett-e.
 	 */
-	private boolean removed = false;
+	private boolean removed;
 
 	/**
 	 * Üres konstruktora a Person osztálynak.
@@ -153,6 +153,7 @@ public class Person {
 		gotFat = 0.0;
 		gotBMR = 0.0;
 		today = LocalDate.now();
+		removed = false;
 		Services.setEssentials(this);
 	}
 

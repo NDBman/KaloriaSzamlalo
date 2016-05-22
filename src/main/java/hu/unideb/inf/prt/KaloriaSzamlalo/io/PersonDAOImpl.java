@@ -40,7 +40,9 @@ public class PersonDAOImpl implements PersonDAO {
 			File dir = path.toFile();
 			for (File f : dir.listFiles()) {
 				try {
+					Main.getLogger().info("Állomány útvonala: " + f.getPath());
 					Person person = gson.fromJson(new FileReader(f.getPath()), Person.class);
+					Main.getLogger().info("Person:" + person);
 					if (person != null) {
 						Main.getPeople().add(person);
 					}
@@ -65,26 +67,24 @@ public class PersonDAOImpl implements PersonDAO {
 	@Override
 	public void savePeople(List<Person> people, Path path) {
 		Gson gson = new GsonBuilder().create();
+		if(path == null){
+			path = Paths.get(System.getProperty("user.home"), "save");
+		}
 
 		for (Person person : people) {
-
+			Main.getLogger().info("Felhasználó: " + person);
+			Path pPath = Paths.get(path.toString(), person.getUserName() + ".json");
 			try {
-
 				if (person.isRemoved()) {
 					Main.getLogger().info("Törölt állomány elérési útvonala: "
-							+ Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json"));
-					if (path == null) {
-						Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json").toFile()
-								.delete();
-					}else{
-						path.toFile()
-						.delete();
-					}
+							+ pPath.toString());
+
+					pPath.toFile().delete();
+
 				} else {
-					if (path == null) {
-						path = Paths.get(System.getProperty("user.home"), "save", person.getUserName() + ".json");
-					}
-					FileWriter fileWriter = new FileWriter(path.toFile());
+					Main.getLogger().info("Állomány útvonala: "
+							+ pPath.toString());
+					FileWriter fileWriter = new FileWriter(pPath.toFile());
 					gson.toJson(person, fileWriter);
 					fileWriter.close();
 				}

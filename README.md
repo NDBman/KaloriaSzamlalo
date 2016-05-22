@@ -8,11 +8,11 @@ Több felhasználói profilt is létre lehet hozni, így akár többen is haszn�
 A programot 10 éves kortól kezdve bárki használhatja.
 
 ### Kalória bevitel
-Kalória bevitel egyszerű. Csak rá kell klikkelni a **Kalória Hozzáadása** gombra, beírni a bevitt mennyiséget, kiválasztani, hogy:
+Kalória bevitel egyszerű. Csak rá kell klikkelni a **Kalória hozzáadása** gombra, beírni a bevitt mennyiséget, kiválasztani, hogy:
   - Szénhidrátot
   - Zsírt
   - vagy Fehérjét
-szeretne hozzáadni profiljához.
+szeretne hozzáadni profiljához. Majd **Hozzáadás** gombbal be is viheti az értéket a programba.
 
 ### Heti Statisztika
 Lehetősége van megtekinteni hoyg az elmúlt hét napban mennyire sikerült teljesíteni a kalóriaszükségletét. Ezt az opciót a **Heti statisztika megtekintése** gombra kattintva érheti el.

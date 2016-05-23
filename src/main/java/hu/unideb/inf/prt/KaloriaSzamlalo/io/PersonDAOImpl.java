@@ -42,7 +42,7 @@ public class PersonDAOImpl implements PersonDAO {
 				try {
 					Main.getLogger().info("Állomány útvonala: " + f.getPath());
 					Person person = gson.fromJson(new FileReader(f.getPath()), Person.class);
-					Main.getLogger().info("Person:" + person);
+					Main.getLogger().info("Felhasználó:" + person);
 					if (person != null) {
 						Main.getPeople().add(person);
 					}

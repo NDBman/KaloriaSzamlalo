@@ -153,7 +153,7 @@ public class RegistrationController {
 		Main.getLogger().info("A felhasználó megnyomta a Regisztrálok gombot.");
 		if (checkFields()) {
 			Main.getLogger().info("nem: " + genderCBox.getSelectionModel().selectedIndexProperty().getValue().toString());
-			Gender gender = (genderCBox.getSelectionModel().selectedIndexProperty().getValue().toString() == "1")
+			Gender gender = (genderCBox.getSelectionModel().selectedIndexProperty().getValue() == 1)
 					? (gender = Gender.MALE) : (gender = Gender.FEMALE);
 			Goals goal = (goalCBox.getSelectionModel().selectedIndexProperty().getValue()
 					.toString() == "Súlycsökkentés") ? (goal = Goals.LOSING_WEIGHT) : (goal = Goals.KEEPING_WEIGHT);

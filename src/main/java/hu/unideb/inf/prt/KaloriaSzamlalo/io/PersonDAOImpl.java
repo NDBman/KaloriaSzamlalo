@@ -36,17 +36,19 @@ public class PersonDAOImpl implements PersonDAO {
 		Gson gson = new GsonBuilder().create();
 		if (path == null)
 			path = Paths.get(System.getProperty("user.home"), "save");
+
 		if (path.toFile().exists()) {
 			File dir = path.toFile();
 			for (File f : dir.listFiles()) {
 				try {
-					Main.getLogger().info("Állomány útvonala: " + f.getPath());
-					Person person = gson.fromJson(new FileReader(f.getPath()), Person.class);
-					Main.getLogger().info("Felhasználó:" + person);
-					if (person != null) {
-						Main.getPeople().add(person);
+					if (f.toPath().toString().endsWith(".json")) {
+						Main.getLogger().info("Állomány útvonala: " + f.getPath());
+						Person person = gson.fromJson(new FileReader(f.getPath()), Person.class);
+						Main.getLogger().info("Felhasználó:" + person);
+						if (person != null) {
+							Main.getPeople().add(person);
+						}
 					}
-
 				} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 					Main.getLogger().error("Nem sikerült a felhasználók betöltés", e);
 				}
@@ -67,7 +69,7 @@ public class PersonDAOImpl implements PersonDAO {
 	@Override
 	public void savePeople(List<Person> people, Path path) {
 		Gson gson = new GsonBuilder().create();
-		if(path == null){
+		if (path == null) {
 			path = Paths.get(System.getProperty("user.home"), "save");
 		}
 
@@ -76,14 +78,12 @@ public class PersonDAOImpl implements PersonDAO {
 			Path pPath = Paths.get(path.toString(), person.getUserName() + ".json");
 			try {
 				if (person.isRemoved()) {
-					Main.getLogger().info("Törölt állomány elérési útvonala: "
-							+ pPath.toString());
+					Main.getLogger().info("Törölt állomány elérési útvonala: " + pPath.toString());
 
 					pPath.toFile().delete();
 
 				} else {
-					Main.getLogger().info("Állomány útvonala: "
-							+ pPath.toString());
+					Main.getLogger().info("Állomány útvonala: " + pPath.toString());
 					FileWriter fileWriter = new FileWriter(pPath.toFile());
 					gson.toJson(person, fileWriter);
 					fileWriter.close();

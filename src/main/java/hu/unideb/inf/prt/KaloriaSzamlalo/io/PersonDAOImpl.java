@@ -34,9 +34,10 @@ public class PersonDAOImpl implements PersonDAO {
 	@Override
 	public void loadPeople(Path path) {
 		Gson gson = new GsonBuilder().create();
-		if (path == null)
+		if (path == null) {
 			path = Paths.get(System.getProperty("user.home"), "save");
-
+		}
+		Main.getLogger().error("Betöltési mappa elérési útvonala: " + path.toString());
 		if (path.toFile().exists()) {
 			File dir = path.toFile();
 			for (File f : dir.listFiles()) {
@@ -72,7 +73,7 @@ public class PersonDAOImpl implements PersonDAO {
 		if (path == null) {
 			path = Paths.get(System.getProperty("user.home"), "save");
 		}
-
+		Main.getLogger().error("Mentési mappa elérési útvonala: " + path.toString());
 		for (Person person : people) {
 			Main.getLogger().info("Felhasználó: " + person);
 			Path pPath = Paths.get(path.toString(), person.getUserName() + ".json");
